@@ -1,0 +1,111 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    <title>Base template</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fa-brands fa-python"></i> Django CRUD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/first_app">Home</a>
+                <a class="nav-link active" aria-current="page" href="/first_app/student_list">Student List</a>
+                <a class="nav-link active" aria-current="page" href="/first_app/student_create">Create</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <script>
+        const inputFields = document.querySelectorAll('input');
+
+        inputFields.forEach(input => {
+           input.classList.add('form-control');
+        });
+
+        new DataTable('#student-table');
+
+        $(document).ready(function() {
+            $(".dropdown-toggle").click(function(e) {
+                e.preventDefault();
+                var dropdownMenu = $(this).siblings(".dropdown-menu");
+                $(".dropdown-menu").not(dropdownMenu).hide();
+                dropdownMenu.toggle();
+            });
+
+            // Hide the dropdown menu when clicking outside
+            $(document).click(function(e) {
+                var target = e.target;
+                if (!$(target).is(".dropdown-toggle") && !$(target).closest(".dropdown-menu").length) {
+                    $(".dropdown-menu").hide();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+    var deleteUrl; // Declare deleteUrl variable
+
+    $('#deleteModal').on('show.bs.modal', function(event) {
+        var link = $(event.relatedTarget);
+        var studentId = link.data('student-id');
+        deleteUrl = '/first_app/student_delete/' + studentId; // Assign value here
+
+        var studentName = link.data('student-name');
+
+        $('#studentIdPlaceholder').text(studentId);
+        $('#studentNamePlaceholder').text(studentName);
+    });
+
+    $('#confirmDeleteBtn').click(function() {
+        if (deleteUrl) {
+            // Send a POST request to the deletion URL using AJAX
+            $.ajax({
+                url: deleteUrl,
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}' // Include CSRF token
+                },
+                success: function(data) {
+                    // Update your UI or take further actions on success
+                    console.log('Student deleted successfully');
+                    // Close the modal if needed
+                    $('#deleteModal').modal('hide');
+                    location.reload();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    // Handle errors
+                    console.error('Error deleting student:', errorThrown);
+                }
+            });
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+#student-table thead th {
+    background-color: #e9eced;
+    border-color: #e9eced;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+#student-table tbody td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.dropdown-cell {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 5px 0;
+    min-width: 120px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    text-align:center;
+    color: #333333;
+    transition: background-color 0.2s;
+}
+.dropdown-menu .btn {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333333;
+    border-radius:0px;
+    width:100%;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+.dropdown-menu .btn:hover {
+    background-color: #f2f2f2!important;
+}
+.dropdown-toggle:after {
+    content: none;
+}
+.page-link{
+    color: black!important;
+}
+.pagination .active a{
+    color:white!important;
+    background-color:#6c757d!important;
+    border-color:#6c757d!important;
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="card-title m-0">
+                    <h5>Student Detail</h5>
+                </div>
+                <a class="btn btn-danger" href="/first_app/student_list">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <h6 class="me-2">Full name: </h6>
+                        {{ student.name }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <h6 class="me-2">Birthday: </h6>
+                        {{ student.birth_of_date }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <h6 class="me-2">Weight: </h6>
+                        {{ student.weight }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
