@@ -5,31 +5,29 @@
 <div class="card mt-3">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="card-title m-0"><h5><i class="fa-solid fa-graduation-cap"></i> Student List</h5></div>
+            <div class="card-title m-0"><h5><i class="fa-solid fa-book"></i> Subject List</h5></div>
         </div>
     </div>
     <div class="card-body">
         <table id="student-table" class="table table-hover">
           <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Birthday</th>
-                <th scope="col">Weight</th>
-                <th scope="col"></th>
+                <th scope="col" style="max-width: 5rem;">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {% for student in students %}
+            {% for subject in subjects %}
                 <tr>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.birth_of_date }}</td>
-                    <td>{{ student.weight }}</td>
+                    <td>{{ subject.id }}</td>
+                    <td>{{ subject.subject_name }}</td>
                     <td class="dropdown-cell">
                         <i class="fa-solid fa-ellipsis-vertical dropdown-toggle"></i>
                         <div class="dropdown-menu">
-                            <a href="/first_app/student_detail/{{ student.id }}"><i class="fa-solid fa-circle-info"></i> Detail</a>
-                            <a href="/first_app/student_update/{{ student.id }}"><i class="fa-solid fa-pen-to-square"></i> Update</a>
-                            <button type="button" class="btn" data-bs-toggle="modal" data-student-id="{{ student.id }}" data-student-name="{{ student.name }}" data-bs-target="#deleteModal">
+                            <a href="/first_app/subject_detail/{{ subject.id }}"><i class="fa-solid fa-circle-info"></i> Detail</a>
+                            <a href="/first_app/subject_update/{{ subject.id }}"><i class="fa-solid fa-pen-to-square"></i> Update</a>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-subject-id="{{ subject.id }}" data-subject-name="{{ subject.subject_name }}" data-bs-target="#deleteModal">
                               <i class="fa-solid fa-trash"></i> Delete
                             </button>
                         </div>
@@ -41,7 +39,7 @@
     </div>
 </div>
 
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -49,7 +47,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              Do you want to delete <span id="studentNamePlaceholder"></span>
+              Do you want to delete <span id="subjectNamePlaceholder"></span>
               </br> This action can not be undone.
           </div>
           <div class="modal-footer">
@@ -67,13 +65,12 @@
 
         $('#deleteModal').on('show.bs.modal', function(event) {
             var link = $(event.relatedTarget);
-            var studentId = link.data('student-id');
-            deleteUrl = '/first_app/student_delete/' + studentId;
+            var subjectId = link.data('subject-id');
+            deleteUrl = '/first_app/subject_delete/' + subjectId;
 
-            var studentName = link.data('student-name');
+            var subjectName = link.data('subject-name');
 
-            $('#studentIdPlaceholder').text(studentId);
-            $('#studentNamePlaceholder').text(studentName);
+            $('#subjectNamePlaceholder').text(subjectName);
         });
 
     $('#confirmDeleteBtn').click(function() {
@@ -90,7 +87,7 @@
 
                     swal({
                       title: "Success!",
-                      text: "Student deleted successfully!",
+                      text: "Subject deleted successfully!",
                       icon: "success",
                       button: "OK",
                     })
@@ -114,4 +111,5 @@
     });
 });
 </script>
+
 {% endblock %}

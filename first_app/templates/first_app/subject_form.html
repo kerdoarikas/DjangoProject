@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mt-5">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-header">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="card-title m-0">
+                        <h5>Update Subject: {{ subject.name }}</h5>
+                    </div>
+                    <a class="btn btn-danger" href="/first_app/subject_list">Back to List</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            {{ form }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="Update Subject" class="btn btn-warning w-25">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
