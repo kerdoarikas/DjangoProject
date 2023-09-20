@@ -31,7 +31,9 @@
               <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/first_app">Home</a>
                 <a class="nav-link active" aria-current="page" href="/first_app/student_list">Student List</a>
-                <a class="nav-link active" aria-current="page" href="/first_app/student_create">Create</a>
+                <a class="nav-link active" aria-current="page" href="/first_app/student_create">Create Student</a>
+                <a class="nav-link active" aria-current="page" href="/first_app/subject_list">Subject List</a>
+                <a class="nav-link active" aria-current="page" href="/first_app/subject_create">Create Subject</a>
               </div>
             </div>
           </div>
@@ -58,7 +60,6 @@
                 dropdownMenu.toggle();
             });
 
-            // Hide the dropdown menu when clicking outside
             $(document).click(function(e) {
                 var target = e.target;
                 if (!$(target).is(".dropdown-toggle") && !$(target).closest(".dropdown-menu").length) {
@@ -66,58 +67,6 @@
                 }
             });
         });
-
-        $(document).ready(function() {
-        var deleteUrl;
-
-        $('#deleteModal').on('show.bs.modal', function(event) {
-            var link = $(event.relatedTarget);
-            var studentId = link.data('student-id');
-            deleteUrl = '/first_app/student_delete/' + studentId;
-
-            var studentName = link.data('student-name');
-
-            $('#studentIdPlaceholder').text(studentId);
-            $('#studentNamePlaceholder').text(studentName);
-        });
-
-    $('#confirmDeleteBtn').click(function() {
-        if (deleteUrl) {
-
-            $.ajax({
-                url: deleteUrl,
-                type: 'POST',
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function(data) {
-                    $('#deleteModal').modal('hide');
-
-                    swal({
-                      title: "Success!",
-                      text: "Student deleted successfully!",
-                      icon: "success",
-                      button: "OK",
-                    })
-                    .then((willDelete) => {
-                      if (willDelete) {
-                        location.reload();
-                      }
-                    });
-
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    // Handle errors
-                    swal({
-                      title: "Ooops...!",
-                      text: "Error: " + errorThrown,
-                      icon: "success",
-                    })
-                }
-            });
-        }
-    });
-});
     </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="card-title m-0">
+                    <h5>Subject Detail</h5>
+                </div>
+                <a class="btn btn-danger" href="/first_app/subject_list">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex">
+                        <h6 class="me-2">Subject name: </h6>
+                        {{ subject.subject_name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
