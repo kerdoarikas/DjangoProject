@@ -24,3 +24,9 @@ class Teacher(models.Model):
 class TeacherAdmin(admin.ModelAdmin):
     list_filter = ['subject']
     list_display = ['name', 'subject']
+
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=255)
+
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ['subject_name']
